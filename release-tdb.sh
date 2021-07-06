@@ -183,13 +183,15 @@ mysql -uroot < sql/create/create_mysql.sql
 mysql -uroot -D auth < sql/base/auth_database.sql
 mysql -uroot -D characters < sql/base/characters_database.sql
 mysql -uroot -D world < sql/base/dev/world_database.sql
+mysql -uroot -D hotfixes < sql/base/dev/hotfixes_database.sql
 
 # 18. recreate the dbs to test TDB import
 mysql -uroot < sql/create/drop_mysql.sql
 mysql -uroot < sql/create/create_mysql.sql
 
 # 19. test TDB import
-mysql -uroot -D world < tdb/$NEW_TDB_FILE.sql
+mysql -uroot -D world < tdb/$NEW_TDB_WORLD_FILE.sql
+mysql -uroot -D hotfixes < tdb/$NEW_TDB_HOTFIXES_FILE.sql
 
 # 20. update revision_data.h.in.cmake with new TDB file name
 sed -i -e 's$ #define _FULL_DATABASE             "[A-Za-z0-9$_.]*"$ #define _FULL_DATABASE             "'$NEW_TDB_WORLD_FILE'.sql"$g' revision_data.h.in.cmake
