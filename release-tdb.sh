@@ -51,7 +51,7 @@ cp ../etc/worldserver.conf.dist ../etc/worldserver.conf
 
 #  7. download latest TDB
 OLD_TDB_RESPONSE=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/TrinityCore/TrinityCore/releases)
-OLD_TDB=$(echo $OLD_TDB_RESPONSE | jq 'map(select(.tag_name|startswith("TDB335")|not)) | sort_by(.created_at) | reverse | .[0]')
+OLD_TDB=$(echo $OLD_TDB_RESPONSE | jq 'map(select(.tag_name|startswith("TDB3")|not)) | sort_by(.created_at) | reverse | .[0]')
 OLD_TDB_VERSION=$(echo $OLD_TDB | jq -r '.tag_name | split(".")[1]')
 OLD_TDB_FOLDER=$OLD_TDB_VERSION'_'`date +%Y_%m_%d`
 OLD_TDB_URL=$( echo $OLD_TDB | jq -r '.assets | map(select(.name|endswith("7z"))) | .[0].browser_download_url')
