@@ -26,16 +26,12 @@ mysql -uroot -e 'create database test_mysql;'
 mysql -uroot < sql/create/create_mysql.sql
 chmod +x contrib/check_updates.sh
 mysql -utrinity -ptrinity auth < sql/base/auth_database.sql
-./contrib/check_updates.sh auth master auth localhost
 ./contrib/check_updates.sh auth cata_classic auth localhost
 mysql -utrinity -ptrinity characters < sql/base/characters_database.sql
-./contrib/check_updates.sh characters master characters localhost
 ./contrib/check_updates.sh characters cata_classic characters localhost
 mysql -utrinity -ptrinity world < sql/base/dev/world_database.sql
 mysql -utrinity -ptrinity hotfixes < sql/base/dev/hotfixes_database.sql
-cat sql/updates/world/master/*.sql | mysql -utrinity -ptrinity world
 cat sql/updates/world/cata_classic/*.sql | mysql -utrinity -ptrinity world
-cat sql/updates/hotfixes/master/*.sql | mysql -utrinity -ptrinity hotfixes
 cat sql/updates/hotfixes/cata_classic/*.sql | mysql -utrinity -ptrinity hotfixes
 mysql -uroot < sql/create/drop_mysql_8.sql
 
@@ -84,10 +80,6 @@ NEW_TDB_HOTFIXES_FILE='TDB_full_hotfixes_'$NEW_WOW_PATCH'.'$NEW_TDB_VERSION'_'$T
 NEW_TDB_RELEASE_NOTES='Release '${NEW_TDB_VERSION: -1}' of '`date +%Y/%m`
 
 # 10. move all sql (excluding needed TDB Release sqls)  update scripts to old
-mkdir -p sql/old/$MAJOR_VERSION.$MINOR_VERSION.x/auth/$OLD_TDB_FOLDER && mv sql/updates/auth/master/* sql/old/$MAJOR_VERSION.$MINOR_VERSION.x/auth/$OLD_TDB_FOLDER/
-mkdir -p sql/old/$MAJOR_VERSION.$MINOR_VERSION.x/characters/$OLD_TDB_FOLDER && mv sql/updates/characters/master/* sql/old/$MAJOR_VERSION.$MINOR_VERSION.x/characters/$OLD_TDB_FOLDER/
-mkdir -p sql/old/$MAJOR_VERSION.$MINOR_VERSION.x/world/$OLD_TDB_FOLDER && mv sql/updates/world/master/* sql/old/$MAJOR_VERSION.$MINOR_VERSION.x/world/$OLD_TDB_FOLDER/
-mkdir -p sql/old/$MAJOR_VERSION.$MINOR_VERSION.x/hotfixes/$OLD_TDB_FOLDER && mv sql/updates/hotfixes/master/* sql/old/$MAJOR_VERSION.$MINOR_VERSION.x/hotfixes/$OLD_TDB_FOLDER/
 mkdir -p sql/old/$MAJOR_VERSION.$MINOR_VERSION.x/auth/$OLD_TDB_FOLDER && mv sql/updates/auth/cata_classic/* sql/old/$MAJOR_VERSION.$MINOR_VERSION.x/auth/$OLD_TDB_FOLDER/
 mkdir -p sql/old/$MAJOR_VERSION.$MINOR_VERSION.x/characters/$OLD_TDB_FOLDER && mv sql/updates/characters/cata_classic/* sql/old/$MAJOR_VERSION.$MINOR_VERSION.x/characters/$OLD_TDB_FOLDER/
 mkdir -p sql/old/$MAJOR_VERSION.$MINOR_VERSION.x/world/$OLD_TDB_FOLDER && mv sql/updates/world/cata_classic/* sql/old/$MAJOR_VERSION.$MINOR_VERSION.x/world/$OLD_TDB_FOLDER/
